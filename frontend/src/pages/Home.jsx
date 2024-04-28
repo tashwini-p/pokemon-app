@@ -17,7 +17,7 @@ export const Home = () => {
   useEffect(() => {
     const fetchRandomPokemonId = async () => {
       try {
-        const response = await axios.get(`http://localhost:8080/random-pokemon`, {
+        const response = await axios.get(`https://pokemon-app-jf23.onrender.com/random-pokemon`, {
           headers: {
             Authorization: `Bearer ${token}`
           }
