@@ -30,7 +30,6 @@ export const Login = () => {
       navigate("/");
     } catch (error) {
       console.error('Error:', error);
-      // Handle error here
     }
   }
 

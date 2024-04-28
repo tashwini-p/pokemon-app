@@ -32,9 +32,9 @@ export const PokemonInfo = () => {
     return (
         <Box textAlign={"center"} fontFamily="Poppins">
             <Heading fontFamily={"fantasy"} mt={12}><span style={{color:"#ecc94b"}}>-------- </span>{pokemon.name && pokemon.name.toUpperCase()}<span style={{color:"#ecc94b"}}> --------</span></Heading>
-            <Flex  mt={12} mb={12} justifyContent="center" gap={6}>
-                <Image border={"2px solid crimson"} boxShadow={"dark-lg"} width={"250px"} src={`https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/${id}.png`} alt={pokemon.name} />
-                <Box ml="4" border={"2px solid crimson"} boxShadow={"dark-lg"} p={8}>
+            <Flex  mt={12} mb={12} justifyContent="center" gap={6} direction={{ base: "column", md: "row" }}>
+                <Image border={{base:"none" ,md:"2px solid crimson"}} boxShadow={"dark-lg"} width={{base: "auto", md:"250px"}} src={`https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/${id}.png`} alt={pokemon.name} />
+                <Box ml="4" border={{base:"none" ,md:"2px solid crimson"}} boxShadow={"dark-lg"} p={8} width={{base: "auto", md:"250px"}}>
               {" "}
               {/* Added margin to separate image and text */}
               <Text mt={2} color={"black"} fontWeight="bold" textAlign="left">
@@ -77,13 +77,14 @@ export const PokemonInfo = () => {
                 <Box mb={12}>
                   {/* <Heading mt={4} size='lg' padding={4}>Stats</Heading> */}
                   <Heading fontFamily={"fantasy"} mt={16} mb={12} size={"md"}><span style={{color:"#ecc94b"}}>-------- </span>STATS<span style={{color:"#ecc94b"}}> --------</span></Heading>
-                  <Flex justifyContent="center">
+                  <Flex justifyContent="center" >
                       <Grid
                           width="100%"
                           maxW="800px"
-                          templateColumns={{ base: "1fr", sm: "1fr 1fr", md: "1fr 1fr 1fr" }}
+                          templateColumns={{ base: "1fr 1fr", sm: "1fr 1fr", md: "1fr 1fr 1fr" }}
                           gap={4}
                           justifyContent="center"
+                          alignItems={"center"}
                       >
                       <Box bg={statColors[0]} p={3} borderRadius={"md"} width={"200px"} height={"200px"} display={"flex"} flexDirection={"column"} justifyContent={"center"} alignItems={"center"}>
                         <svg xmlns="http://www.w3.org/2000/svg" height="45" viewBox="0 -960 960 960" width="45"><path d="m480-120-58-52q-101-91-167-157T150-447.5Q111-500 95.5-544T80-634q0-94 63-157t157-63q52 0 99 22t81 62q34-40 81-62t99-22q94 0 157 63t63 157q0 46-15.5 90T810-447.5Q771-395 705-329T538-172l-58 52Zm0-108q96-86 158-147.5t98-107q36-45.5 50-81t14-70.5q0-60-40-100t-100-40q-47 0-87 26.5T518-680h-76q-15-41-55-67.5T300-774q-60 0-100 40t-40 100q0 35 14 70.5t50 81q36 45.5 98 107T480-228Zm0-273Z"/></svg>
