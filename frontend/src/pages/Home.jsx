@@ -1,63 +1,74 @@
 import { Heading, Input, Flex, Box, Text, Button } from '@chakra-ui/react';
 import { useContext, useEffect, useState } from 'react';
-import { jwtDecode } from "jwt-decode";
+import axios from 'axios'; // Import Axios
 import PokemonCard from '../components/Pokemon';
 import { GlobalContext } from '../contexts/GlobalContext';
 import { useNavigate } from 'react-router-dom';
 
 export const Home = () => {
   const { setTitle } = useContext(GlobalContext);
+  const [randomPokemonId, setRandomPokemonId] = useState(null);
   const [randomPokemon, setRandomPokemon] = useState(null);
   const [searchQuery, setSearchQuery] = useState('');
   const navigate = useNavigate();
-  const token = localStorage.getItem("accessToken");
+  const token = JSON.parse(localStorage.getItem("accessToken"));
+  console.log(token);
 
-  console.log(randomPokemon);
+  useEffect(() => {
+    const fetchRandomPokemonId = async () => {
+      try {
+        const response = await axios.get(`http://localhost:8080/random-pokemon`, {
+          headers: {
+            Authorization: `Bearer ${token}`
+          }
+        });
+        if (response.status === 200) {
+          const data = response.data;
+          console.log(data);
+          setRandomPokemonId(data.randomPokemonId);
+        } else {
+          throw new Error('Failed to fetch random Pokemon ID');
+        }
+      } catch (error) {
+        console.error('Error fetching random Pokemon ID:', error);
+      }
+    };
+
+    if (token) {
+      fetchRandomPokemonId();
+    } 
+  }, [token]);
+
+  useEffect(() => {
+    if (randomPokemonId) {
+      const fetchPokemonDetails = async () => {
+        try {
+          const response = await axios.get(`https://pokeapi.co/api/v2/pokemon/${randomPokemonId}`);
+          if (response.status === 200) {
+            const data = response.data;
+            setRandomPokemon(data);
+          } else {
+            throw new Error('Failed to fetch random Pokemon details');
+          }
+        } catch (error) {
+          console.error('Error fetching random Pokemon details:', error);
+        }
+      };
+
+      fetchPokemonDetails();
+    }
+  }, [randomPokemonId]);
 
   const handleSearch = () => {
-    const token = localStorage.getItem("accessToken");
     if (!token) {
       // Prompt user to login if token is not present
       alert("Please login to perform this action.");
       navigate('/login');
-      return
+      return;
     }
     setTitle(searchQuery.toLowerCase()); // Set the title to lowercase
     navigate(`/results/${searchQuery.toLowerCase()}`);
   };
-
-  useEffect(() => {
-    const token = localStorage.getItem("accessToken");
-    if (!token) {
-      return;
-    }
-    
-    const decoded = jwtDecode(token);
-    const userId = decoded.data.id;
-
-    let storedUserRandomPokemonId = localStorage.getItem(`randomPokemonId_${userId}`);
-    const getRandomPokemonId = () => {
-      return Math.floor(Math.random() * 898) + 1;
-    };
-
-    const fetchRandomPokemon = async () => {
-      const randomId = storedUserRandomPokemonId || getRandomPokemonId();
-      const response = await fetch(`https://pokeapi.co/api/v2/pokemon/${randomId}`);
-      if (response.ok) {
-        const data = await response.json();
-        setRandomPokemon(data);
-        localStorage.setItem(`randomPokemonId_${userId}`, randomId);
-      } else {
-        fetchRandomPokemon(); 
-      }
-    };
-
-    fetchRandomPokemon();
-
-    const interval = setInterval(fetchRandomPokemon, 24 * 60 * 60 * 1000);
-
-    return () => clearInterval(interval);
-  }, []);
 
   return (
     <Flex
