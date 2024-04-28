@@ -11,6 +11,7 @@ import {
   IconButton,
   Image,
   Text,
+  useToast,
 } from "@chakra-ui/react";
 import { HamburgerIcon, CloseIcon } from "@chakra-ui/icons";
 import { NavLink, useNavigate } from "react-router-dom";
@@ -22,6 +23,7 @@ export default function Navbar() {
   const [isOpen, setIsOpen] = useState(false);
   const navigate = useNavigate();
   const token = localStorage.getItem("accessToken") || "";
+  const toast = useToast()
 
   const handleToggle = () => setIsOpen(!isOpen);
 
@@ -34,11 +36,15 @@ export default function Navbar() {
         },
       });
       localStorage.removeItem("accessToken");
-      alert("Logout Successful!");
+      toast({
+        title: 'Logout sucessful.',
+          status: 'success',
+          duration: 500,
+          isClosable: true,
+      })
       navigate("/login");
     } catch (error) {
       console.error("Error:", error);
-      // Handle error here
     }
   };
 

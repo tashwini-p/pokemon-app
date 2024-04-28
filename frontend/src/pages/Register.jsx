@@ -1,9 +1,10 @@
 import { useState } from 'react';
 import axios from 'axios';
-import { Box, Button, FormControl, FormLabel, Input, Heading, useColorModeValue } from '@chakra-ui/react';
+import { Box, Button, FormControl, FormLabel, Input, Heading, useColorModeValue, useToast } from '@chakra-ui/react';
 import { useNavigate } from 'react-router-dom';
 
 export const Register = () => {
+  const toast = useToast()
   const [userInfo, setUserInfo] = useState({
     username: '',
     email: '',
@@ -26,10 +27,22 @@ export const Register = () => {
     try {
       const response = await axios.post('https://pokemon-app-jf23.onrender.com/users/register', userInfo);
       console.log(response.data);
-      alert("user registered successfully!");
+      toast({
+        title: 'Login sucessful.',
+          status: 'success',
+          duration: 500,
+          isClosable: true,
+      })
       navigate('/login');
     } catch (error) {
       console.error('Error:', error);
+      toast({
+        title: 'Failed to register user.',
+        description: 'All fields must be properly filled.',
+          status: 'error',
+          duration: 2000,
+          isClosable: true,
+      })
     }
   }
 

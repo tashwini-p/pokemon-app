@@ -1,7 +1,7 @@
-import { Box, Heading, Spinner } from "@chakra-ui/react";
+import { Box, Button, Heading, Spinner } from "@chakra-ui/react";
 import { useEffect, useState } from "react";
 import PokemonCard from "../components/Pokemon";
-import { useParams } from "react-router-dom";
+import { useNavigate, useParams } from "react-router-dom";
 import axios from "axios"; // Import Axios
 
 export const Results = () => {
@@ -9,6 +9,7 @@ export const Results = () => {
     const [loading, setLoading] = useState(true);
     const [error, setError] = useState(false);
     const { search } = useParams();
+    const navigate = useNavigate();
 
     useEffect(() => {
         const fetchData = async () => {
@@ -44,9 +45,10 @@ export const Results = () => {
                     <Spinner size="xl" />
                 </Box>
             ) : error === 'notFound' ? (
-                <Box mt={4}>
+                <Box mt={4} display={"flex"} flexDirection={"column"}>
                     <div>Sorry! The Pokemon you are looking for does not exist.</div>
                     <p>Try checking for spelling errors..</p>
+                    <Button mt={4} bg={"#ecc94b" } onClick={()=>{navigate("/")}}>Go to Home</Button>
                 </Box>
             ) : error === 'other' ? (
                 <div>Error fetching data.</div>

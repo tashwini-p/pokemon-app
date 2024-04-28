@@ -46,7 +46,8 @@ userRouter.post("/login", async(req, res)=>{
 
 userRouter.post("/logout", verifyToken , async (req, res) => {
 
-    const accessToken = req.headers.authorization.split(" ")[0];
+    const accessToken = req.headers.authorization;
+    console.log(accessToken);
 
     try {
         

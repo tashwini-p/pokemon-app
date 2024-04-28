@@ -1,10 +1,11 @@
 import { useState } from 'react';
 import axios from 'axios';
 import { useNavigate } from 'react-router-dom';
-import { Box, Button, FormControl, FormLabel, Input, Heading, useColorModeValue } from '@chakra-ui/react';
+import { Box, Button, FormControl, FormLabel, Input, Heading, useColorModeValue, useToast } from '@chakra-ui/react';
 
 export const Login = () => {
   const navigate = useNavigate();
+  const toast = useToast()
   const [loginInfo, setLoginInfo] = useState({
     email: '',
     password: ''
@@ -26,10 +27,21 @@ export const Login = () => {
       console.log(response.data);
 
       localStorage.setItem("accessToken", JSON.stringify(response.data.items))
-      alert("Login Successful!")
+      toast({
+        title: 'Login sucessful.',
+          status: 'success',
+          duration: 500,
+          isClosable: true,
+      })
       navigate("/");
     } catch (error) {
       console.error('Error:', error);
+      toast({
+        title: 'Login failed.',
+          status: 'error',
+          duration: 2000,
+          isClosable: true,
+      })
     }
   }
 

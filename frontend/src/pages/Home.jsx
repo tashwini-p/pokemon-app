@@ -70,7 +70,7 @@ export const Home = () => {
       <Box textAlign="center" maxW="70%">
         <Heading pt={8} pb={6} mt={8}>Welcome to the Pokemon App!</Heading>
         <Text textAlign="justify" mb={8} mt={4}>
-          Welcome to the ultimate Pokémon hub, your exclusive gateway to explore the vast world of Pokémon like never before! Dive into our comprehensive database containing information about every Pokémon that has ever graced the Pokémon universe. Whether you're a seasoned trainer or a curious newcomer, embark on your journey of discovery by simply searching for your favorite Pokémon. Get ready to uncover fascinating details, learn about their unique abilities, and immerse yourself in the enchanting lore of Pokémon. Are you ready to embark on your adventure? Start exploring now!
+          Welcome to the ultimate Pokémon hub, your exclusive gateway to explore the vast world of Pokémon like never before! Dive into our comprehensive database containing information about every Pokémon that has ever graced the Pokémon universe. Whether you are a seasoned trainer or a curious newcomer, embark on your journey of discovery by simply searching for your favorite Pokémon. Get ready to uncover fascinating details, learn about their unique abilities, and immerse yourself in the enchanting lore of Pokémon. Are you ready to embark on your adventure? Start exploring now!
         </Text>
         <form>
             <Input mb={12} placeholder="Search Pokemon..." maxWidth="400px" value={searchQuery} onChange={(e) => setSearchQuery(e.target.value)}/>
