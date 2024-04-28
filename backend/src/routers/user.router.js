@@ -18,31 +18,37 @@ userRouter.get("/", async (req, res)=>{
     }
 })
 
-userRouter.post("/login", async(req, res)=>{
-    const {email, password} = req.body;
+userRouter.post("/login", async(req, res) => {
+    const { email, password } = req.body;
 
     try {
-        const isUserExists = await User.findOne({email:email});
+        // Check if the user exists
+        const isUserExists = await User.findOne({ email: email });
+        
+        if (!isUserExists) {
+            return res.status(404).send({"status":404,"msg": "User is not registered"}); // User is not registered
+        }
+
+        // If the user exists, check the password
         const checkPassword = await bcrypt.compare(password, isUserExists.password);
         console.log(checkPassword);
 
-        if(checkPassword){
-
+        if (checkPassword) {
             const accessToken = await jwt.sign({
-                data: {email: isUserExists.email, username: isUserExists.username, id:isUserExists._id}
-              }, process.env.SECRETKEY , { expiresIn: '1h' });
+                data: { email: isUserExists.email, username: isUserExists.username, id: isUserExists._id }
+            }, process.env.SECRETKEY, { expiresIn: '1h' });
 
-            return res.status(200).send({"msg":"Login successful", "items": accessToken});
-        
+            return res.status(200).send({"status":200, "msg": "Login successful", "items": accessToken });
         } else {
-            return res.status(400).send({"msg":"Email or Password might be wrong"});
+            return res.status(400).send({"status":400, "msg": "Email or Password might be wrong" });
         }
 
     } catch (error) {
         console.log(error);
-        return res.status(500).send({"msg":"Login failed"});
+        return res.status(500).send({"status":500, "msg": "Login failed" });
     }
 })
+
 
 userRouter.post("/logout", verifyToken , async (req, res) => {
 

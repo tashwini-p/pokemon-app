@@ -25,25 +25,45 @@ export const Login = () => {
     try {
       const response = await axios.post('https://pokemon-app-jf23.onrender.com/users/login', loginInfo);
       console.log(response.data);
-
-      localStorage.setItem("accessToken", JSON.stringify(response.data.items))
+  
+      localStorage.setItem("accessToken", JSON.stringify(response.data.items));
       toast({
-        title: 'Login sucessful.',
-          status: 'success',
-          duration: 500,
-          isClosable: true,
-      })
+        title: 'Login successful.',
+        status: 'success',
+        duration: 500,
+        isClosable: true,
+      });
       navigate("/");
     } catch (error) {
       console.error('Error:', error);
-      toast({
-        title: 'Login failed.',
+      if (error.response && error.response.status === 500) {
+        // User not registered
+        toast({
+          title: 'User not registered. Please register.',
           status: 'error',
           duration: 2000,
           isClosable: true,
-      })
+        });
+      } else if (error.response && error.response.status === 400) {
+        // Login failed
+        toast({
+          title: 'Login failed. Please check your credentials.',
+          status: 'error',
+          duration: 2000,
+          isClosable: true,
+        });
+      } else {
+        // Other errors
+        toast({
+          title: 'Login failed. Please try again later.',
+          status: 'error',
+          duration: 2000,
+          isClosable: true,
+        });
+      }
     }
-  }
+  };
+  
 
   return (
     <Box textAlign="center" mt="30px" mx="auto" w="400px" p="20px" border="1px solid #ccc" borderRadius="md" bg="white" boxShadow={`0 0 10px ${crimson}`}>

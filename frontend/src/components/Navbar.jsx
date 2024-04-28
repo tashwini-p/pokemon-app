@@ -74,6 +74,9 @@ export default function Navbar() {
               </Button> */}
               {token ? (
                 <>
+                  <Button bg={"#ecc94b"} onClick={()=>{navigate("/")}}>
+                    <svg xmlns="http://www.w3.org/2000/svg" height="80" viewBox="0 -960 960 960" width="80"><path d="M229-189h124v-258h254v258h124v-377L480-754 229-565.67V-189Zm-94 94v-518l345-259 346 259v518H524v-269h-88v269H135Zm345-377Z"/></svg>
+                  </Button>
                   <Button
                     variant="solid"
                     colorScheme="yellow"
