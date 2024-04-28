@@ -36,7 +36,7 @@ export const Login = () => {
       navigate("/");
     } catch (error) {
       console.error('Error:', error);
-      if (error.response && error.response.status === 500) {
+      if (error.response && error.response.status === 404) {
         // User not registered
         toast({
           title: 'User not registered. Please register.',
