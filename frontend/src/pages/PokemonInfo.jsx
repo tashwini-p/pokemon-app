@@ -31,10 +31,10 @@ export const PokemonInfo = () => {
 
     return (
         <Box textAlign={"center"} fontFamily="Poppins">
-            <Heading fontFamily={"fantasy"} mt={12}><span style={{color:"#ecc94b"}}>-------- </span>{pokemon.name && pokemon.name.toUpperCase()}<span style={{color:"#ecc94b"}}> --------</span></Heading>
+            <Heading fontFamily={"fantasy"} mt={12}><span style={{color:"#ecc94b"}}>------ </span>{pokemon.name && pokemon.name.toUpperCase()}<span style={{color:"#ecc94b"}}> ------</span></Heading>
             <Flex  mt={12} mb={12} justifyContent="center" gap={6} direction={{ base: "column", md: "row" }}>
-                <Image border={{base:"none" ,md:"2px solid crimson"}} boxShadow={"dark-lg"} width={{base: "auto", md:"250px"}} src={`https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/${id}.png`} alt={pokemon.name} />
-                <Box ml="4" border={{base:"none" ,md:"2px solid crimson"}} boxShadow={"dark-lg"} p={8} width={{base: "auto", md:"250px"}}>
+                <Image border={{base:"none" ,md:"2px solid crimson"}} boxShadow={{ base:"none" ,md:"dark-lg"}} width={{base: "auto", md:"250px"}} src={`https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/${id}.png`} alt={pokemon.name} />
+                <Box ml="4" border={{base:"none" ,md:"2px solid crimson"}} boxShadow={{ base:"none" ,md:"dark-lg"}} p={8} width={{base: "auto", md:"250px"}}>
               {" "}
               {/* Added margin to separate image and text */}
               <Text mt={2} color={"black"} fontWeight="bold" textAlign="left">

@@ -7,7 +7,6 @@ import {
   MenuList,
   MenuItem,
   MenuDivider,
-  useColorMode,
   Stack,
   IconButton,
   Image,
@@ -19,7 +18,7 @@ import { useState } from "react";
 import axios from "axios";
 
 export default function Navbar() {
-  const { colorMode, toggleColorMode } = useColorMode();
+  // const { colorMode, toggleColorMode } = useColorMode();
   const [isOpen, setIsOpen] = useState(false);
   const navigate = useNavigate();
   const token = localStorage.getItem("accessToken") || "";
@@ -201,8 +200,8 @@ export default function Navbar() {
                   </Button>
                 </>
               )}
-              <Button onClick={toggleColorMode} variant="ghost">
-                {colorMode === "light" ? "Dark Mode" : "Light Mode"}
+              <Button color={"white"} onClick={()=>{navigate("/")}} variant="ghost">
+                Home
               </Button>
             </Stack>
           </Box>

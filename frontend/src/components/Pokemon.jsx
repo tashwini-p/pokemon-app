@@ -39,7 +39,7 @@ const PokemonCard = ({ pokemon }) => {
               bg="white"
               src={pokemon?.sprites?.front_shiny}
               alt={pokemon.name}
-              boxSize="200px"
+              boxSize={{ base:"150px", md:"200px"}}
               objectFit="contain"
               mb="4"
             />
