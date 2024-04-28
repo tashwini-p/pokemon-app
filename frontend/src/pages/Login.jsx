@@ -22,7 +22,7 @@ export const Login = () => {
   const handleSubmit = async (e) => {
     e.preventDefault();
     try {
-      const response = await axios.post('http://localhost:8080/users/login', loginInfo);
+      const response = await axios.post('https://pokemon-app-jf23.onrender.com/users/login', loginInfo);
       console.log(response.data);
 
       localStorage.setItem("accessToken", JSON.stringify(response.data.items))

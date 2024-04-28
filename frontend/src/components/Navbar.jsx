@@ -29,7 +29,7 @@ export default function Navbar() {
   const handleLogout = async () => {
     try {
       const accessToken = JSON.parse(localStorage.getItem("accessToken"));
-      await axios.post("http://localhost:8080/users/logout", null, {
+      await axios.post("https://pokemon-app-jf23.onrender.com/users/logout", null, {
         headers: {
           Authorization: `Bearer ${accessToken}`,
         },

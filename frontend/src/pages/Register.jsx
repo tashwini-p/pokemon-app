@@ -24,7 +24,7 @@ export const Register = () => {
   const handleSubmit = async (e) => {
     e.preventDefault();
     try {
-      const response = await axios.post('http://localhost:8080/users/register', userInfo);
+      const response = await axios.post('https://pokemon-app-jf23.onrender.com/users/register', userInfo);
       console.log(response.data);
       alert("user registered successfully!");
       navigate('/login');
