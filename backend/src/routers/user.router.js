@@ -29,7 +29,7 @@ userRouter.post("/login", async(req, res)=>{
         if(checkPassword){
 
             const accessToken = await jwt.sign({
-                data: {email: isUserExists.email, username: isUserExists.username}
+                data: {email: isUserExists.email, username: isUserExists.username, id:isUserExists._id}
               }, process.env.SECRETKEY , { expiresIn: '1h' });
 
             return res.status(200).send({"msg":"Login successful", "items": accessToken});
