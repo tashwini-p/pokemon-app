@@ -38,7 +38,7 @@ userRouter.post("/login", async(req, res) => {
                 data: { email: isUserExists.email, username: isUserExists.username, id: isUserExists._id }
             }, process.env.SECRETKEY, { expiresIn: '1h' });
 
-            return res.status(200).send({"status":200, "msg": "Login successful", "items": accessToken });
+            return res.status(200).send({"status":200, "msg": "Login successful", "token": accessToken });
         } else {
             return res.status(400).send({"status":400, "msg": "Email or Password might be wrong" });
         }
@@ -73,7 +73,7 @@ userRouter.post("/register", async (req, res)=>{
     const saltRounds = 10;
 
     if(!username || !email || !password || !confirmPassword){
-        return res.status(400).send({"msg":"All fields are requires to register"});
+        return res.status(400).send({"msg":"All fields are required to register"});
     }
 
     if(password!==confirmPassword){
@@ -84,7 +84,7 @@ userRouter.post("/register", async (req, res)=>{
         const hashedPassword = await bcrypt.hash(password, saltRounds);
         const isUser = new User({username, email, password: hashedPassword});
         await isUser.save();
-        return res.status(200).send({"msg":"User registeres successfully"});
+        return res.status(200).send({"msg":"User registered successfully"});
     } catch (error) {
         console.log(error);
         return res.status(500).send({"msg":"Could not register user"});
