@@ -26,7 +26,7 @@ export const Login = () => {
       const response = await axios.post('https://pokemon-app-jf23.onrender.com/users/login', loginInfo);
       console.log(response.data);
   
-      localStorage.setItem("accessToken", JSON.stringify(response.data.items));
+      localStorage.setItem("accessToken", JSON.stringify(response.data.token));
       toast({
         title: 'Login successful.',
         status: 'success',
